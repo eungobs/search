@@ -1,0 +1,68 @@
+!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet" />
+  <script src="https://kit.fontawesome.com/db762452ac.js" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/axios@1.1.2/dist/axios.min.js"></script>
+  <title>Weather App ⛅</title>
+  <style>
+    body {
+      background-color: lightblue;
+      color: white;
+      font-family: 'Poppins', sans-serif;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Weather App ⛅</h1>
+    
+    <form id="search-form" class="mb-3">
+      <label for="city">Enter city name:</label>
+      <input type="text" id="city" name="city" required>
+      <button type="submit">Search</button>
+    </form>
+    
+    <span id="weather-mood"></span>
+    <p id="weather-info"></p>
+    <p>Visit my GitHub repository: <a href="https://github.com/eungobs/weather.git">eungobs/weather</a></p>
+  </div>
+
+  <script>
+    const form = document.getElementById('search-form');
+    const weatherInfo = document.getElementById('weather-info');
+    const weatherMood = document.getElementById('weather-mood');
+
+    form.addEventListener('submit', async function(event) {
+      event.preventDefault();
+      const city = document.getElementById('city').value;
+      try {
+        const response = await axios.get(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=YOUR_API_KEY&units=metric`);
+        const data = response.data;
+        const temperature = data.main.temp;
+        const weatherDescription = data.weather[0].description;
+        const weatherEmoji = getWeatherEmoji(weatherDescription);
+        weatherMood.textContent = weatherEmoji;
+        weatherInfo.textContent = `Temperature: ${temperature}°C, Weather: ${weatherDescription}`;
+      } catch (error) {
+        weatherInfo.textContent = 'Error fetching weather data. Please try again.';
+        console.error(error);
+      }
+    });
+
+    function getWeatherEmoji(weatherDescription) {
+      if (weatherDescription.includes('cloud')) {
+        return '☁️';
+      } else if (weatherDescription.includes('sun')) {
+        return '☀️';
+      } else {
+        return '🌰';
+      }
+    }
+  </script>
+</body>
+</html>
