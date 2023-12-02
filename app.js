@@ -3,7 +3,7 @@ document.getElementById('search-form').addEventListener('submit', async function
     const cityInput = document.getElementById('city-input').value;
   
     try {
-      const apiKey = 3ed565296c19775878a64c31457d90b2''; // Replace 'YOUR_API_KEY' with your actual API key
+      const apiKey = 3ed565296c19775878a64c31457d90b2''; 
       const apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${cityInput}&units=metric&appid=${apiKey}`;
       const response = await axios.get(apiUrl);
   
