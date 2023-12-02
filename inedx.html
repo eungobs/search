@@ -41,7 +41,7 @@
       event.preventDefault();
       const city = document.getElementById('city').value;
       try {
-        const response = await axios.get(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=YOUR_API_KEY&units=metric`);
+        const response = await axios.get(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid= 3ed565296c19775878a64c31457d90b2&units=metric`);
         const data = response.data;
         const temperature = data.main.temp;
         const weatherDescription = data.weather[0].description;
